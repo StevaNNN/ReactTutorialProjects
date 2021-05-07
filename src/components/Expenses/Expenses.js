@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import ExpenseItem from './ExpenseItem';
 import ExpensesFilter from "./ExpensesFilter";
 import Card from '../UI/Card';
+import ExpensesList from "./ExpensesList";
 import './Expenses.css';
 
 const Expenses = (props) => {
@@ -12,27 +12,13 @@ const Expenses = (props) => {
         setYear(data)
     }
 
-    let filteredItems = props.items.filter(item => item.date.toLocaleString().includes(year));
-
-    let allItems = filteredItems.length > 0 ? filteredItems.map((item, index) => {
-        return(
-            <ExpenseItem
-                key={index}
-                title={item.title}
-                amount={item.amount}
-                date={item.date}
-            />
-        );
-    }) : <h1 style={{color: '#fff'}}>There are no expenses in this year</h1>;
+    let filteredItems = props.items && props.items.filter(item => item.date.toLocaleString().includes(year));
 
     return (
         <Card className="expenses">
             <div>
-                <ExpensesFilter
-                    selectedYear={year}
-                    onYearSelect={onYearSelectHandler}
-                />
-                {allItems}
+                <ExpensesFilter selectedYear={year} onYearSelect={onYearSelectHandler}/>
+                <ExpensesList items={filteredItems} />
             </div>
         </Card>
     );
