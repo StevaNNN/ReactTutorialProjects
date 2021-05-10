@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
+import UsersCreationForm from "./components/UsersCreationForm/UsersCreationForm";
+import UsersList from "./components/UsersList/UsersList";
 
 const App = () => {
+
+  const {users, setUsers} = useState([{name: "Steva", age: 21}]);
+  const createUser = (newUser) => {
+      console.log(newUser)
+  }
+
   return(
-      <div>This is App cmp</div>
+      <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+        <UsersCreationForm createUser={createUser}/>
+        <UsersList users={[{name: "Steva", age: 21}]} />
+      </div>
   )
 }
 
