@@ -3,6 +3,7 @@ import ExpenseItem from "./ExpenseItem";
 import './ExpensesList.css';
 
 const ExpensesList = (props) => {
+
     let allItems;
     allItems = props.items.length > 0 ? props.items.map((item, index) => {
         return(
@@ -14,8 +15,6 @@ const ExpensesList = (props) => {
             />
         );
     }) : <h1 className={'expenses-list__fallback'}>There are no expenses in this year</h1>;
-
-    // console.log(props)
 
     return(
         <ul className={'expenses-list'}>

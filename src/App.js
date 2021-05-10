@@ -41,8 +41,8 @@ const App = () => {
 
   const addExpenseHandler = (data, value) => {
     setFormOpened(value);
-    setExpensesList((preState) => {
-      return [...preState, data];
+    setExpensesList((prevState) => {
+      return [data,...prevState];
     });
   }
 
