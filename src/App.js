@@ -4,18 +4,33 @@ import UsersList from "./components/UsersList/UsersList";
 
 const App = () => {
 
-  const [users, setUsers] = useState([{name: "Steva", age: 21}]);
+    const [users, setUsers] = useState([]);
 
-  const createUser = (newUser) => {
-      console.log(newUser)
-  }
+    const createUser = (newUser) => {
+        setUsers((prevState) => {
+            return [...prevState, newUser]
+        })
+    }
+    const formInvalid = (value) => {
+        console.log(value)
+    }
 
-  return(
-      <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
-        <UsersCreationForm createUser={createUser}/>
-        <UsersList users={users} />
-      </div>
-  )
+    const onUserDelete = (id) => {
+        setUsers((prevState) => {
+            let test = prevState;
+            test.splice(id)
+            console.log(test)
+        })
+    }
+
+    console.log(users)
+
+    return (
+        <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
+            <UsersCreationForm createUser={createUser} formInvalid={formInvalid} />
+            <UsersList users={users} onUserDelete={onUserDelete}/>
+        </div>
+    )
 }
 
 export default App;

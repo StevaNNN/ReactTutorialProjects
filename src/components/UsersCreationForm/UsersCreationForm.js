@@ -8,26 +8,25 @@ const UsersCreationForm = props => {
 
     // cmp handlers
     const onNameChange = (e) => {
-        // if(e.target.value.trim().length === 0) {
-        //     return;
-        // }
         setName(e.target.value)
     };
     const onAgeChange = (e) => {
-        // if(e.target.value.trim().length === 0) {
-        //     return;
-        // }
         setAge(e.target.value)
     };
     const onUserCreateHandler = () => {
         const tempObj = { name: name, age: age }
-        props.createUser(tempObj);
-        setName('');
-        setAge('');
-    }
 
-    console.log(age);
-    console.log(name);
+        if([...age].includes("-")) {
+            props.formInvalid('negative')
+        } else if (name.trim().length > 0 && age.trim().length > 0) {
+            props.createUser(tempObj);
+            setName('');
+            setAge('');
+            props.formInvalid('success')
+        } else {
+            props.formInvalid('short')
+        }
+    }
 
     return(
         <div style={{
@@ -52,7 +51,7 @@ const UsersCreationForm = props => {
             <input
                 onChange={onAgeChange}
                 value={age}
-                type={"text"}
+                type="number"
                 id={"age"}
             />
             <button
