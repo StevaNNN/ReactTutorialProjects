@@ -17,14 +17,18 @@ const UsersCreationForm = props => {
         const tempObj = { name: name, age: age }
 
         if([...age].includes("-")) {
-            props.formInvalid('negative')
+            props.formInvalid('negative');
         } else if (name.trim().length > 0 && age.trim().length > 0) {
+
+        } else {
+            props.formInvalid('short');
+        }
+
+        if (name.trim().length > 0 && age.trim().length > 0) {
             props.createUser(tempObj);
             setName('');
             setAge('');
-            props.formInvalid('success')
-        } else {
-            props.formInvalid('short')
+            props.formInvalid('success');
         }
     }
 
