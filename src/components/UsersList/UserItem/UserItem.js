@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "../../UI/Button/Button";
 
 const UserItem = props => {
 
@@ -8,11 +7,9 @@ const UserItem = props => {
             <span>{props.name}</span>
             <span>({props.age} year's old)</span>
             <span style={{flex: '1'}}/>
-            <Button
-                onClick={() => console.log('userClicked')}
-            >
+            <button onClick={props.userDelete}>
                 Delete user
-            </Button>
+            </button>
         </div>
     )
 }

@@ -3,12 +3,17 @@ import UserItem from "./UserItem/UserItem";
 
 const UsersList = (props) => {
 
+    const deleteUserHandler = (id) => {
+
+    }
+
     let render = !!props.users ? props.users.map((user, id) => {
         return(
             <UserItem
                 key={id}
                 name={user.name}
                 age={user.age}
+                userDelete={deleteUserHandler.bind(this, id)}
                 id={id}
             />
         )

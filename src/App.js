@@ -4,7 +4,8 @@ import UsersList from "./components/UsersList/UsersList";
 
 const App = () => {
 
-  const {users, setUsers} = useState([{name: "Steva", age: 21}]);
+  const [users, setUsers] = useState([{name: "Steva", age: 21}]);
+
   const createUser = (newUser) => {
       console.log(newUser)
   }
@@ -12,7 +13,7 @@ const App = () => {
   return(
       <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
         <UsersCreationForm createUser={createUser}/>
-        <UsersList users={[{name: "Steva", age: 21}]} />
+        <UsersList users={users} />
       </div>
   )
 }
