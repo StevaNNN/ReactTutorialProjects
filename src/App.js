@@ -24,11 +24,11 @@ const App = () => {
         }
         switch (value) {
             case 'short':
-                return setModalText('Name text is to short');
+                return setModalText('Name or age input is not valid, please enter non empty values');
             case 'negative':
-                return setModalText("Age number is set to negative, that's not allowed");
+                return setModalText("Age number is to short");
             case 'success':
-                break;
+                return setModalText("");
             default:
                 break;
         }

@@ -16,20 +16,17 @@ const UsersCreationForm = props => {
     const onUserCreateHandler = () => {
         const tempObj = { name: name, age: age }
 
-        if([...age].includes("-")) {
-            props.formInvalid('negative');
-        } else if (name.trim().length > 0 && age.trim().length > 0) {
-
+        if(name.trim().length === 0 && age.trim().length === 0) {
+            props.formInvalid('short')
+        } else if (+age < 1) {
+            props.formInvalid('negative')
         } else {
-            props.formInvalid('short');
-        }
-
-        if (name.trim().length > 0 && age.trim().length > 0) {
             props.createUser(tempObj);
             setName('');
             setAge('');
-            props.formInvalid('success');
+            props.formInvalid('success');    
         }
+
     }
 
     return(
