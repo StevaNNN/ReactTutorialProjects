@@ -5,8 +5,7 @@ export const formReducer = (state, action) => {
             userName: action.payload,
             userNameIsValid: action.payload.includes('@'),
             password: state.password,
-            passwordIsValid: state.passwordIsValid,
-            formValid: state.formValid
+            passwordIsValid: state.passwordIsValid
         }
     }
     if(action.type === 'INPUT_BLUR') {
@@ -14,8 +13,7 @@ export const formReducer = (state, action) => {
             userName: state.userName,
             userNameIsValid: state.userName.includes('@'),
             password: state.password,
-            passwordIsValid: state.passwordIsValid,
-            formValid: state.formValid
+            passwordIsValid: state.passwordIsValid
         }
     }
 
@@ -24,8 +22,7 @@ export const formReducer = (state, action) => {
             userName: state.userName,
             userNameIsValid: state.userNameIsValid,
             password: action.payload,
-            passwordIsValid: action.payload.trim().length > 6,
-            formValid: state.formValid
+            passwordIsValid: action.payload.trim().length > 6
         }
     }
     if(action.type === 'PASSWORD_BLUR') {
@@ -33,25 +30,14 @@ export const formReducer = (state, action) => {
             userName: state.userName,
             userNameIsValid: state.userNameIsValid,
             password: state.password,
-            passwordIsValid: state.password.trim().length > 6,
-            formValid: state.formValid
+            passwordIsValid: state.password.trim().length > 6
         }
     }
 
-    if(action.type === 'FORM_VALIDATION') {
-        return {
-            userName: state.userName,
-            userNameIsValid: state.userNameIsValid,
-            password: state.password,
-            passwordIsValid: state.passwordIsValid,
-            formValid: state.userName && state.userName.includes('@') && state.password && state.password.trim().length > 6
-        }
-    }
     return {
         userName: '',
         userNameIsValid: false,
         password: '',
-        passwordIsValid: false,
-        formValid: false
+        passwordIsValid: false
     }
 }

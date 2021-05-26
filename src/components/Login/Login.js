@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useEffect, useState} from 'react';
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
@@ -11,21 +11,31 @@ const Login = (props) => {
             userName: '',
             userNameIsValid: null,
             password: '',
-            passwordIsValid: null,
-            formValid: null
+            passwordIsValid: null
         }
     );
+    const {
+        userName,
+        userNameIsValid,
+        password,
+        passwordIsValid
+    } = formState;
 
-    console.log(formState);
+    const [formIsValid, setFormIsValid] = useState(false);
+
+    useEffect(() => {
+        console.log('checking validity');
+        setFormIsValid(userNameIsValid && passwordIsValid);
+
+        return () => {
+            console.log('cleanup')
+        }
+    }, [userNameIsValid, passwordIsValid]);
 
     const emailChangeHandler = (event) => {
         dispatchForm({
             type: "USER_INPUT",
             payload: event.target.value
-        });
-        console.log("USERNAME ENTERED")
-        dispatchForm({
-            type: 'FORM_VALIDATION'
         });
     };
 
@@ -33,7 +43,6 @@ const Login = (props) => {
         dispatchForm({
             type: 'INPUT_BLUR'
         });
-        console.log("USERNAME BLURRED");
     };
 
     const passwordChangeHandler = (event) => {
@@ -41,51 +50,44 @@ const Login = (props) => {
             type: 'PASSWORD_INPUT',
             payload: event.target.value
         });
-        console.log("PASSWORD ENTERED");
-
-        dispatchForm({
-            type: 'FORM_VALIDATION'
-        });
     };
 
     const validatePasswordHandler = () => {
         dispatchForm({
             type: 'PASSWORD_BLUR'
         });
-        console.log("PASSWORD BLURRED");
     };
 
     const submitHandler = (e) => {
         e.preventDefault();
-        props.onLogin(formState.userName, formState.password);
+        props.onLogin(userName, password);
     };
 
     return (
         <Card className={classes.login}>
             <form onSubmit={submitHandler}>
-                <div className={`${classes.control} ${formState.userNameIsValid === false ? classes.invalid : ''}`}>
+                <div className={`${classes.control} ${userNameIsValid === false ? classes.invalid : ''}`}>
                     <label htmlFor="email">E-Mail</label>
-                    {/*trazi . posle @ zato sto je type="email"*/}
                     <input
                         type="email"
                         id="email"
-                        value={formState.userName}
+                        value={userName}
                         onChange={emailChangeHandler}
                         onBlur={validateEmailHandler}
                     />
                 </div>
-                <div className={`${classes.control} ${formState.passwordIsValid === false ? classes.invalid : ''}`}>
+                <div className={`${classes.control} ${passwordIsValid === false ? classes.invalid : ''}`}>
                     <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         id="password"
-                        value={formState.password}
+                        value={password}
                         onChange={passwordChangeHandler}
                         onBlur={validatePasswordHandler}
                     />
                 </div>
                 <div className={classes.actions}>
-                    <Button type="submit" className={classes.btn} disabled={!formState.formValid}>
+                    <Button type="submit" className={classes.btn} disabled={!formIsValid}>
                         Login
                     </Button>
                 </div>
